@@ -14,30 +14,19 @@ PHP 5.4, but it may work on earlier versions.
 
 Installing
 ----------
-1. Install MediaWiki and verify that it's working.
-
-2. Create the directory `INSTALLDIR/extensions/Akismet` on the server and copy 
-   the MediaWiki-Akismet files to the directory.
-
-3. Run `php ./maintenance/update.php` on the command line from the top
-   MediaWiki directory.  This will create the mw_akismet_edits database table.
-
-4. Edit LocalSettings.php in the MediaWiki root directory.  Add these three 
+1. Signup for Akismet and [retrieve your akismet key](https://akismet.com/account/).
+2. Install Git and MediaWiki on your server.
+3. Change your directory to the top MediaWiki directory and clone mwakismet: `git clone git://github.com/aag/mwakismet extensions/Akismet`.
+4. Run `php ./maintenance/update.php` to create the mw_akismet_edits database table.
+5. Edit LocalSettings.php in the MediaWiki root directory.  Add these three 
    lines near the end of the file, but before the `?>`:
    
-   ```php
-   // Akismet extension
-   include( $IP . '/extensions/Akismet/Akismet.php' );
-   $wgMWAkismetKey = '1234567890ab';
-   $wgMWAkismetURL = 'http://www.example.com/';
-   ```
-
-5. Edit the $wgMWAkismetKey and $wgMWAkismetURL variables to match the API 
-   key you got from Akismet and the location of your MediaWiki installation.
-   If you don't have an Akismet API key yet, you can [create a free or paid
-   account on the Akismet site](https://akismet.com/plans/) and get one.
-
-6. Make page edits and let Akismet catch the spam.
+```php
+# Akismet extension
+include("$IP/extensions/Akismet/Akismet.php");
+$wgMWAkismetKey = 'yourAkismetKey';
+$wgMWAkismetURL = 'http://www.YOURDOMAIN.com/';
+```
 
 License
 -------
